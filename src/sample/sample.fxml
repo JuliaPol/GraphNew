@@ -42,31 +42,26 @@
                             </cursor>
                         </Button>
                         <Label layoutX="859.0" layoutY="137.0" text="Задайте вершины:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="859.0" AnchorPane.topAnchor="137.0" />
-                        <TextArea layoutX="14.0" layoutY="69.0" prefHeight="516.0" prefWidth="182.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
+                        <TextArea fx:id="textArea" layoutX="14.0" layoutY="69.0" prefHeight="516.0" prefWidth="182.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
                         <Label layoutX="14.0" layoutY="45.0" text="Статус" AnchorPane.leftAnchor="14.0" />
-                        <AnchorPane layoutX="217.0" layoutY="69.0" prefHeight="377.0" prefWidth="581.0" style="-fx-background-color: #d6f8ff;">
-                            <cursor>
-                                <Cursor fx:constant="DEFAULT" />
-                            </cursor>
-                        </AnchorPane>
                         <Line endX="-90.0" endY="400.0" layoutX="300.0" layoutY="52.0" startX="-90.0" startY="10.0" />
                         <Line endX="500.0" endY="-40.0" layoutX="302.0" layoutY="493.0" startX="-90.0" startY="-40.0" />
                         <Label layoutX="206.0" layoutY="458.0" text="0" />
-                        <Label layoutX="241.0" layoutY="458.0" text="1" />
-                        <Label layoutX="280.0" layoutY="458.0" text="2" />
-                        <Label layoutX="319.0" layoutY="458.0" text="3" />
-                        <Label layoutX="358.0" layoutY="458.0" text="4" />
-                        <Label layoutX="397.0" layoutY="458.0" text="5" />
-                        <Label layoutX="436.0" layoutY="458.0" text="6" />
-                        <Label layoutX="475.0" layoutY="458.0" text="7" />
-                        <Label layoutX="514.0" layoutY="458.0" text="8" />
-                        <Label layoutX="553.0" layoutY="458.0" text="9" />
-                        <Label layoutX="592.0" layoutY="458.0" text="10" />
-                        <Label layoutX="631.0" layoutY="458.0" text="11" />
-                        <Label layoutX="670.0" layoutY="458.0" text="12" />
-                        <Label layoutX="709.0" layoutY="458.0" text="13" />
-                        <Label layoutX="748.0" layoutY="458.0" text="14" />
-                        <Label layoutX="787.0" layoutY="458.0" text="15" />
+                        <Label layoutX="245.0" layoutY="458.0" text="1" />
+                        <Label layoutX="284.0" layoutY="458.0" text="2" />
+                        <Label layoutX="323.0" layoutY="458.0" text="3" />
+                        <Label layoutX="361.0" layoutY="458.0" text="4" />
+                        <Label layoutX="400.0" layoutY="458.0" text="5" />
+                        <Label layoutX="440.0" layoutY="458.0" text="6" />
+                        <Label layoutX="479.0" layoutY="458.0" text="7" />
+                        <Label layoutX="518.0" layoutY="458.0" text="8" />
+                        <Label layoutX="557.0" layoutY="458.0" text="9" />
+                        <Label layoutX="596.0" layoutY="458.0" text="10" />
+                        <Label layoutX="635.0" layoutY="458.0" text="11" />
+                        <Label layoutX="674.0" layoutY="458.0" text="12" />
+                        <Label layoutX="713.0" layoutY="458.0" text="13" />
+                        <Label layoutX="752.0" layoutY="458.0" text="14" />
+                        <Label layoutX="791.0" layoutY="458.0" text="15" />
                         <Label layoutX="200.0" layoutY="419.0" text="1" />
                         <Label layoutX="200.0" layoutY="380.0" text="2" />
                         <Label layoutX="200.0" layoutY="341.0" text="3" />
@@ -91,12 +86,12 @@
                         <Label layoutX="803.0" layoutY="168.0" text="Начальная" AnchorPane.topAnchor="168.0" />
                         <TextField fx:id="vertexGraph1" layoutX="871.0" layoutY="164.0" prefHeight="25.0" prefWidth="59.0" AnchorPane.topAnchor="164.0" />
                         <TextField fx:id="vertexGraph2" layoutX="871.0" layoutY="191.0" prefHeight="25.0" prefWidth="59.0" AnchorPane.topAnchor="191.0" />
-                        <Button layoutX="819.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" text="Вывести координаты">
+                        <Button layoutX="819.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayCoordinates" prefHeight="25.0" prefWidth="227.0" text="Вывести координаты">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="819.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" text="Вывести ребра">
+                        <Button layoutX="819.0" layoutY="261.0" mnemonicParsing="false" onAction="#displayEdge" prefHeight="25.0" prefWidth="227.0" text="Вывести ребра">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
@@ -120,6 +115,7 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
+                  <Pane fx:id="pane" layoutX="212.0" layoutY="63.0" prefHeight="391.0" prefWidth="591.0" />
                     </children>
                 </AnchorPane>
             </children>

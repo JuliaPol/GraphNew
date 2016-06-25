@@ -1,9 +1,12 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.SubScene;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+
+import java.util.ArrayList;
 
 public class Controller {
     @FXML
@@ -14,56 +17,97 @@ public class Controller {
     private TextField vertexGraph1;
     @FXML
     private TextField vertexGraph2;
-    private Alert alert;
     @FXML
-    public void handleAddVertexGraph () {
+    private Pane pane;
+    @FXML
+    private TextArea textArea;
+    private Alert alert;
+    private static int amount = 0;
+    private ArrayList<VertexGraph> listVertex = new ArrayList<>();
+    private ArrayList<EdgeGraph> listEdge = new ArrayList<>();
+
+    @FXML
+    public void handleAddVertexGraph() {
         if (graphX.getText() == null || graphX.getText().length() == 0) {
             error("Пожалуйста, заполните поле <X>");
-        }
-        else {
+        } else {
             if (graphY.getText() == null || graphY.getText().length() == 0) {
                 error("Пожалуйста, заполните поле <Y>");
-            }
-            else {
+            } else {
                 try {
                     int x = Integer.parseInt(graphX.getText());
                     int y = Integer.parseInt(graphY.getText());
                     if (x > 15 || x < 0 || y > 10 || y < 0) {
                         error("Граф может быть не отображен. Пожалуйста, введите координаты в соответствии заданной координатной осью.");
+                    } else {
+                        VertexGraph vertexGraph = new VertexGraph(x, y);
+                        listVertex.add(vertexGraph);
+                        amount++;
+                        Button button = new Button(Integer.toString(vertexGraph.getNumber()));
+                        button.setLayoutX(x * 37);
+                        button.setLayoutY(390 - y * 39);
+                        pane.getChildren().add(button);
                     }
-                    // и вот тут наконец-то начинается магия с созданием графов
-                }
-                catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     ex.printStackTrace();
                     error("Введено некорректное значение в одно из полей! Пожалуста, вводите только цифры.");
                 }
             }
         }
     }
+
     @FXML
-    public void handleAddEdge () {
+    public void handleAddEdge() {
         if (vertexGraph1.getText() == null || vertexGraph1.getText().length() == 0) {
             error("Пожалуйста, заполните поле <Начальная>");
-        }
-        else {
+        } else {
             if (vertexGraph2.getText() == null || vertexGraph2.getText().length() == 0) {
                 error("Пожалуйста, заполните поле <Конечная>");
-            }
-            else {
+            } else {
                 try {
                     int x = Integer.parseInt(vertexGraph1.getText());
                     int y = Integer.parseInt(vertexGraph2.getText());
-                    // Тут каким-то образом мы должны знать сколько вершин у нас существут и проверять их наличие
-                    // if (x > 15 || x < 0 || y > 10 || y < 0) {
-                    //   error("Не существет заданных вершин.");
-                    //}
-                    // и вот тут наконец-то начинается магия с соединением графов
-                }
-                catch (Exception ex) {
+                    if (x > amount || y > amount || x < 0 || y < 0) {
+                        error("Не существет заданных вершин.");
+                    }
+                    if (x == y) {
+                        error("Выберите различные вершины.");
+                    } else {
+                        VertexGraph vertexGraph1 = listVertex.get(x - 1);
+                        VertexGraph vertexGraph2 = listVertex.get(y - 1);
+                        double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
+                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length);
+                        listEdge.add(edgeGraph);
+                        Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(), vertexGraph2.getX() - 5, vertexGraph2.getY());
+                        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() + 5);
+                        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() - 5);
+                        pane.getChildren().add(line);
+                        pane.getChildren().add(line1);
+                        pane.getChildren().add(line2);
+
+                    }
+                } catch (NumberFormatException ex) {
                     ex.printStackTrace();
                     error("Введено некорректное значение в одно из полей! Пожалуста, вводите только цифры.");
                 }
             }
+        }
+    }
+
+    @FXML
+    public void displayCoordinates() {
+        textArea.clear();
+        for (VertexGraph ver : listVertex) {
+            textArea.appendText("Координаты графа № " + ver.getNum() + "\n" + " X: " + ver.getX()/39 + " Y: " + (390 - ver.getY())/39 + "\n");
+        }
+    }
+
+    @FXML
+    public void displayEdge() {
+        textArea.clear();
+        int i = 0;
+        for (EdgeGraph edge : listEdge) {
+            textArea.appendText("Ребро № " + ++i + "\n" + edge.getVertexGraphStart().getNum() + " -> " + edge.getVertexGraphEnd().getNum() + "\n" + "Длина ребра: "+ edge.getLength() + "\n");
         }
     }
 
@@ -73,4 +117,10 @@ public class Controller {
         alert.setHeaderText(s);
         alert.showAndWait();
     }
+
+    public double getLength(int x, int y, int x1, int y1) {
+        double length = Math.sqrt(Math.abs(x1 - x) ^ 2 + Math.abs(y1 - y) ^ 2);
+        return length;
+    }
+
 }
