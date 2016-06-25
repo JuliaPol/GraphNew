@@ -3,10 +3,11 @@ package Dijkstra;
 import java.util.Vector;
 
 /**
- * Created by FlipBook TP300LD on 24.06.2016.
+ * Алгоритм Дейкстры
+ * @author Paul Osmlovsky
  */
-
 public class DijkstraAlgorithm {
+    public DijkstraAlgorithm(){} // в общем то чистая формальность
 
     protected Vector<Integer> AlgDijkstra(int start, int end, Integer nSize, Vector<VertexDijkstra> arrOfLen)
     {
