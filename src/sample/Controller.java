@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Controller {
     @FXML
@@ -20,9 +22,14 @@ public class Controller {
     @FXML
     private Pane pane;
     @FXML
+    private TextField startVertex;
+    @FXML
+    private TextField endVertex;
+    @FXML
     private TextArea textArea;
     private Alert alert;
-    private static int amount = 0;
+    private static int amountV = 0;
+    private static int amountE = 0;
     private ArrayList<VertexGraph> listVertex = new ArrayList<>();
     private ArrayList<EdgeGraph> listEdge = new ArrayList<>();
 
@@ -42,7 +49,7 @@ public class Controller {
                     } else {
                         VertexGraph vertexGraph = new VertexGraph(x, y);
                         listVertex.add(vertexGraph);
-                        amount++;
+                        amountV++;
                         Button button = new Button(Integer.toString(vertexGraph.getNumber()));
                         button.setLayoutX(x * 37);
                         button.setLayoutY(390 - y * 39);
@@ -67,7 +74,7 @@ public class Controller {
                 try {
                     int x = Integer.parseInt(vertexGraph1.getText());
                     int y = Integer.parseInt(vertexGraph2.getText());
-                    if (x > amount || y > amount || x < 0 || y < 0) {
+                    if (x > amountV || y > amountV || x < 0 || y < 0) {
                         error("Не существет заданных вершин.");
                     }
                     if (x == y) {
@@ -77,6 +84,7 @@ public class Controller {
                         VertexGraph vertexGraph2 = listVertex.get(y - 1);
                         double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
                         EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length);
+                        amountE++;
                         listEdge.add(edgeGraph);
                         Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(), vertexGraph2.getX() - 5, vertexGraph2.getY());
                         Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() + 5);
@@ -98,7 +106,7 @@ public class Controller {
     public void displayCoordinates() {
         textArea.clear();
         for (VertexGraph ver : listVertex) {
-            textArea.appendText("Координаты графа № " + ver.getNum() + "\n" + " X: " + ver.getX()/39 + " Y: " + (390 - ver.getY())/39 + "\n");
+            textArea.appendText("Координаты графа № " + ver.getNum() + "\n" + " X: " + ver.getX() / 39 + " Y: " + (390 - ver.getY()) / 39 + "\n");
         }
     }
 
@@ -107,7 +115,42 @@ public class Controller {
         textArea.clear();
         int i = 0;
         for (EdgeGraph edge : listEdge) {
-            textArea.appendText("Ребро № " + ++i + "\n" + edge.getVertexGraphStart().getNum() + " -> " + edge.getVertexGraphEnd().getNum() + "\n" + "Длина ребра: "+ edge.getLength() + "\n");
+            textArea.appendText("Ребро № " + ++i + "\n" + edge.getVertexGraphStart().getNum() + " -> " + edge.getVertexGraphEnd().getNum() + "\n" + "Длина ребра: " + edge.getLength() + "\n");
+        }
+    }
+
+    @FXML
+    public void shortestPathProblem() {
+        if (startVertex.getText() == null || startVertex.getText().length() == 0) {
+            error("Пожалуйста, заполните поле <Начальная вершина>");
+        } else {
+            if (endVertex.getText() == null || endVertex.getText().length() == 0) {
+                error("Пожалуйста, заполните поле <Конечная вершина>");
+            } else {
+                try {
+                    int x = Integer.parseInt(startVertex.getText());
+                    int y = Integer.parseInt(endVertex.getText());
+                    if (x > amountV || y > amountV || x < 0 || y < 0) {
+                        error("Не существет заданных вершин.");
+                    }
+                    if (x == y) {
+                        error("Выберите различные вершины.");
+                    } else {
+                        Dijkstra dijkstra = new Dijkstra(amountE);
+                        ArrayList<EdgeGraph> listEdge1 = sortEdgeList(listEdge);
+                        ArrayList<Integer> shortWay = dijkstra.dijkstraAlgoritm(x - 1, y - 1, amountE, listEdge1);
+                        textArea.appendText("Кратчайший путь из " + x + " в " + y + ": " + "\n");
+                        if (shortWay.get(1) == -1)
+                            textArea.appendText("Не существует");
+                        for (int cur = 0; cur < shortWay.size() - 1; ++cur) {
+                            textArea.appendText(shortWay.get(cur) + " -> " + (shortWay.get(cur + 1)));
+                        }
+                    }
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                    error("Введено некорректное значение в одно из полей! Пожалуста, вводите только цифры.");
+                }
+            }
         }
     }
 
@@ -122,5 +165,13 @@ public class Controller {
         double length = Math.sqrt(Math.abs(x1 - x) ^ 2 + Math.abs(y1 - y) ^ 2);
         return length;
     }
+
+    public ArrayList<EdgeGraph> sortEdgeList(ArrayList<EdgeGraph> edgeGraphs) {
+        ArrayList<EdgeGraph> newEdgeGraph;
+        Collections.sort(edgeGraphs,new EdgeGraph.EdgeCompare());
+        newEdgeGraph = edgeGraphs;
+        return newEdgeGraph;
+    }
+
 
 }

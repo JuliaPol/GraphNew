@@ -33,7 +33,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button defaultButton="true" layoutX="374.0" layoutY="481.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="289.0" text="Алгоритм Дейкстры" textFill="#3585da" AnchorPane.bottomAnchor="28.0">
+                        <Button defaultButton="true" layoutX="811.0" layoutY="380.0" mnemonicParsing="false" onAction="#shortestPathProblem" prefHeight="54.0" prefWidth="237.0" text="Алгоритм Дейкстры" textFill="#3585da" AnchorPane.bottomAnchor="163.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -116,6 +116,11 @@
                             </menus>
                         </MenuBar>
                   <Pane fx:id="pane" layoutX="212.0" layoutY="63.0" prefHeight="391.0" prefWidth="591.0" />
+                  <Label layoutX="847.0" layoutY="302.0" text="Поиск кратчайшего пути " />
+                  <Label layoutX="806.0" layoutY="326.0" text="Начальная вершина" />
+                  <Label layoutX="805.0" layoutY="359.0" text="Конечная вершина" />
+                  <TextField fx:id="startVertex" layoutX="930.0" layoutY="322.0" prefHeight="25.0" prefWidth="112.0" />
+                  <TextField fx:id="endVertex" layoutX="931.0" layoutY="355.0" prefHeight="25.0" prefWidth="112.0" />
                     </children>
                 </AnchorPane>
             </children>
