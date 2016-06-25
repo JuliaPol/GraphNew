@@ -140,10 +140,13 @@ public class Controller {
                         ArrayList<EdgeGraph> listEdge1 = sortEdgeList(listEdge);
                         ArrayList<Integer> shortWay = dijkstra.dijkstraAlgoritm(x - 1, y - 1, amountE, listEdge1);
                         textArea.appendText("Кратчайший путь из " + x + " в " + y + ": " + "\n");
-                        if (shortWay.get(1) == -1)
+                        if (shortWay.get(0) == -1)
                             textArea.appendText("Не существует");
-                        for (int cur = 0; cur < shortWay.size() - 1; ++cur) {
-                            textArea.appendText(shortWay.get(cur) + " -> " + (shortWay.get(cur + 1)));
+                        else {
+                            for (int cur = 0; cur < shortWay.size(); cur++) {
+                                textArea.appendText(" " + (shortWay.get(cur) + 1) + " -> " + (shortWay.get(cur + 1) + 1) + "\n");
+                            }
+                            textArea.appendText("Стоимость пути: " + dijkstra.getLength());
                         }
                     }
                 } catch (NumberFormatException ex) {
@@ -168,7 +171,7 @@ public class Controller {
 
     public ArrayList<EdgeGraph> sortEdgeList(ArrayList<EdgeGraph> edgeGraphs) {
         ArrayList<EdgeGraph> newEdgeGraph;
-        Collections.sort(edgeGraphs,new EdgeGraph.EdgeCompare());
+        Collections.sort(edgeGraphs, new EdgeGraph.EdgeCompare());
         newEdgeGraph = edgeGraphs;
         return newEdgeGraph;
     }

@@ -10,6 +10,11 @@ public class Dijkstra {
     private ArrayList<Double> vLen = new ArrayList<>();// Длина путей
     private ArrayList<Integer> visitedTops = new ArrayList<>();//Посещенные вершины
     private ArrayList<Integer> realWay = new ArrayList<>();//Предыдущие значения вершин
+    private double length;
+
+    public double getLength() {
+        return length;
+    }
 
     public Dijkstra(int nSize) {
         for (int i = 0; i < nSize; i++) {
@@ -27,10 +32,10 @@ public class Dijkstra {
         {
             double minLen = inf;
             for (int v = 0; v < edgeGraphs.size(); v++) {
-                if (edgeGraphs.get(v).getVertexGraphStart().getNum() == CurrV) {
-                    if (vLen.get(edgeGraphs.get(v).getVertexGraphEnd().getNum()) > vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()) + edgeGraphs.get(v).getLength()) {
-                        vLen.set(edgeGraphs.get(v).getVertexGraphEnd().getNum(), vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()) + edgeGraphs.get(v).getLength());
-                        realWay.set(edgeGraphs.get(v).getVertexGraphEnd().getNum(),edgeGraphs.get(v).getVertexGraphStart().getNum());
+                if (edgeGraphs.get(v).getVertexGraphStart().getNum()-1 == CurrV) {
+                    if (vLen.get(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1) > vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()-1) + edgeGraphs.get(v).getLength()) {
+                        vLen.set(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1, vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()-1) + edgeGraphs.get(v).getLength());
+                        realWay.set(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1,edgeGraphs.get(v).getVertexGraphStart().getNum()-1);
                     }
                 }
             }
@@ -54,6 +59,7 @@ public class Dijkstra {
         }
         else
         {
+            length = vLen.get(end);
             ArrayList<Integer> path = new ArrayList<>();
             for (int cur = end; cur != -1; cur = realWay.get(cur))
                 path.add(cur);
