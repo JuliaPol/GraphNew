@@ -2,10 +2,7 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.SubScene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
@@ -22,9 +19,12 @@ public class Controller {
     private TextField vertexGraph2;
     @FXML
     private Pane pane;
+    @FXML
+    private TextArea textArea;
     private Alert alert;
     private static int amount = 0;
     private ArrayList<VertexGraph> listVertex = new ArrayList<>();
+    private ArrayList<EdgeGraph> listEdge = new ArrayList<>();
 
     @FXML
     public void handleAddVertexGraph() {
@@ -42,14 +42,12 @@ public class Controller {
                     } else {
                         VertexGraph vertexGraph = new VertexGraph(x, y);
                         listVertex.add(vertexGraph);
-                        amount ++;
+                        amount++;
                         Button button = new Button(Integer.toString(vertexGraph.getNumber()));
                         button.setLayoutX(x * 37);
                         button.setLayoutY(390 - y * 39);
                         pane.getChildren().add(button);
-                        //System.out.println(vertexGraph.toString());
                     }
-                    // и вот тут наконец-то начинается магия с созданием графов
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
                     error("Введено некорректное значение в одно из полей! Пожалуста, вводите только цифры.");
@@ -70,30 +68,46 @@ public class Controller {
                     int x = Integer.parseInt(vertexGraph1.getText());
                     int y = Integer.parseInt(vertexGraph2.getText());
                     if (x > amount || y > amount || x < 0 || y < 0) {
-                       error("Не существет заданных вершин.");
+                        error("Не существет заданных вершин.");
                     }
                     if (x == y) {
                         error("Выберите различные вершины.");
-                    }
-                    else {
+                    } else {
                         VertexGraph vertexGraph1 = listVertex.get(x - 1);
                         VertexGraph vertexGraph2 = listVertex.get(y - 1);
-                        double length = getLength(vertexGraph1.getX(),vertexGraph1.getY(),vertexGraph2.getX(),vertexGraph2.getY());
-                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1),listVertex.get(y - 1), length);
-                        Line line = new Line(vertexGraph1.getX()-5,vertexGraph1.getY() ,vertexGraph2.getX()-5,vertexGraph2.getY() );
-                        Line line1 = new Line(vertexGraph2.getX()-5,vertexGraph2.getY(),vertexGraph2.getX() - 10,vertexGraph2.getY() + 5);
-                        Line line2 = new Line(vertexGraph2.getX()-5,vertexGraph2.getY(),vertexGraph2.getX() - 10,vertexGraph2.getY() - 5);
+                        double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
+                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length);
+                        listEdge.add(edgeGraph);
+                        Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(), vertexGraph2.getX() - 5, vertexGraph2.getY());
+                        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() + 5);
+                        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() - 5);
                         pane.getChildren().add(line);
                         pane.getChildren().add(line1);
                         pane.getChildren().add(line2);
 
                     }
-                    // и вот тут наконец-то начинается магия с соединением графов
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
                     error("Введено некорректное значение в одно из полей! Пожалуста, вводите только цифры.");
                 }
             }
+        }
+    }
+
+    @FXML
+    public void displayCoordinates() {
+        textArea.clear();
+        for (VertexGraph ver : listVertex) {
+            textArea.appendText("Координаты графа № " + ver.getNum() + "\n" + " X: " + ver.getX()/39 + " Y: " + (390 - ver.getY())/39 + "\n");
+        }
+    }
+
+    @FXML
+    public void displayEdge() {
+        textArea.clear();
+        int i = 0;
+        for (EdgeGraph edge : listEdge) {
+            textArea.appendText("Ребро № " + ++i + "\n" + edge.getVertexGraphStart().getNum() + " -> " + edge.getVertexGraphEnd().getNum() + "\n" + "Длина ребра: "+ edge.getLength() + "\n");
         }
     }
 
@@ -104,8 +118,8 @@ public class Controller {
         alert.showAndWait();
     }
 
-    public double getLength (int x, int y, int x1, int y1) {
-        double length = Math.sqrt((x1-x)^2+(y1-y)^2);
+    public double getLength(int x, int y, int x1, int y1) {
+        double length = Math.sqrt(Math.abs(x1 - x) ^ 2 + Math.abs(y1 - y) ^ 2);
         return length;
     }
 

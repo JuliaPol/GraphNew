@@ -42,7 +42,7 @@
                             </cursor>
                         </Button>
                         <Label layoutX="859.0" layoutY="137.0" text="Задайте вершины:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="859.0" AnchorPane.topAnchor="137.0" />
-                        <TextArea layoutX="14.0" layoutY="69.0" prefHeight="516.0" prefWidth="182.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
+                        <TextArea fx:id="textArea" layoutX="14.0" layoutY="69.0" prefHeight="516.0" prefWidth="182.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
                         <Label layoutX="14.0" layoutY="45.0" text="Статус" AnchorPane.leftAnchor="14.0" />
                         <Line endX="-90.0" endY="400.0" layoutX="300.0" layoutY="52.0" startX="-90.0" startY="10.0" />
                         <Line endX="500.0" endY="-40.0" layoutX="302.0" layoutY="493.0" startX="-90.0" startY="-40.0" />
@@ -86,12 +86,12 @@
                         <Label layoutX="803.0" layoutY="168.0" text="Начальная" AnchorPane.topAnchor="168.0" />
                         <TextField fx:id="vertexGraph1" layoutX="871.0" layoutY="164.0" prefHeight="25.0" prefWidth="59.0" AnchorPane.topAnchor="164.0" />
                         <TextField fx:id="vertexGraph2" layoutX="871.0" layoutY="191.0" prefHeight="25.0" prefWidth="59.0" AnchorPane.topAnchor="191.0" />
-                        <Button layoutX="819.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" text="Вывести координаты">
+                        <Button layoutX="819.0" layoutY="230.0" mnemonicParsing="false" onAction="#displayCoordinates" prefHeight="25.0" prefWidth="227.0" text="Вывести координаты">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button layoutX="819.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" text="Вывести ребра">
+                        <Button layoutX="819.0" layoutY="261.0" mnemonicParsing="false" onAction="#displayEdge" prefHeight="25.0" prefWidth="227.0" text="Вывести ребра">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>

@@ -9,17 +9,28 @@ public class VertexGraph {
     private static int number = 0;
     private int X;
     private int Y;
+    private int num;
 
     public VertexGraph() {
         number++;
         X = 0;
         Y = 0;
+        num = number;
     }
 
     public VertexGraph(int X1, int Y1) {
         number++;
         X = X1 * 39;
         Y = 390 - Y1 * 39;
+        num = number;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public int getX() {

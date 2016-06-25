@@ -20,6 +20,27 @@ public class EdgeGraph {
         length = length1;
     }
 
+    public VertexGraph getVertexGraphStart() {
+        return vertexGraphStart;
+    }
 
+    public void setVertexGraphStart(VertexGraph vertexGraphStart) {
+        this.vertexGraphStart = vertexGraphStart;
+    }
 
+    public VertexGraph getVertexGraphEnd() {
+        return vertexGraphEnd;
+    }
+
+    public void setVertexGraphEnd(VertexGraph vertexGraphEnd) {
+        this.vertexGraphEnd = vertexGraphEnd;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
 }
