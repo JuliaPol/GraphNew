@@ -8,24 +8,25 @@ import java.util.Vector;
 
 public class DijkstraAlgorithm {
 
-
-
     protected Vector<Integer> AlgDijkstra(int start, int end, Integer nSize, Vector<VertexDijkstra> arrOfLen)
     {
         int inf = 2147483647;
 //        int [] n = new int[nSize];
-        Vector<Integer> vLen = new Vector<Integer>(nSize);
-        for(int i = 0; i < nSize; i++) vLen.addElement(inf);
-            //,Inf);    //(nSize);        //, Inf); // Длина путей
-        Vector<Integer> realWay = new Vector<Integer>(nSize);//, -1); // Предыдущие значения вершин
-        for(int i = 0; i < nSize; i++) vLen.addElement(-1);
-        Vector<Integer> u = new Vector<Integer>(nSize);//),0); //Вектор посещенных вершин
-        for(int i = 0; i < nSize; i++) vLen.addElement(0);
-        vLen.add(start,0);
-        int CurrV=start; //Текущий элемент
-        u.add(CurrV,1);
-        // Алгоритм
 
+        Vector<Integer> vLen = new Vector<Integer>(nSize);
+        for(int i = 0; i < nSize; i++) vLen.addElement(inf);       // Длина путей
+
+        Vector<Integer> realWay = new Vector<Integer>(nSize); // Предыдущие значения вершин
+        for(int i = 0; i < nSize; i++) vLen.addElement(-1);
+
+        Vector<Integer> u = new Vector<Integer>(nSize); //Вектор посещенных вершин
+        for(int i = 0; i < nSize; i++) vLen.addElement(0);
+
+        vLen.setElementAt(start,0);
+        int CurrV=start; //Текущий элемент
+        u.setElementAt(CurrV,1);
+
+        // Алгоритм
         while(u.elementAt(end)!=1) //Цикл выполняется до тех пор, пока не посетим конечную вершину
         {
             int minLen=inf;
@@ -35,8 +36,8 @@ public class DijkstraAlgorithm {
                 {
                     if (vLen.elementAt(arrOfLen.elementAt(v).dest) > vLen.elementAt(arrOfLen.elementAt(v).source) + arrOfLen.elementAt(v).length)
                     {
-                        vLen.elementAt(arrOfLen.elementAt(v).dest) = vLen.elementAt(arrOfLen.elementAt(v).source) + arrOfLen.elementAt(v).length;
-                        realWay.elementAt(arrOfLen.elementAt(v).dest) = arrOfLen.elementAt(v).source;
+                        vLen.setElementAt(vLen.elementAt(arrOfLen.elementAt(v).source) + arrOfLen.elementAt(v).length,arrOfLen.elementAt(v).dest);
+                        realWay.setElementAt(arrOfLen.elementAt(v).source,arrOfLen.elementAt(v).dest);
                     }
                 }
             }
@@ -54,13 +55,12 @@ public class DijkstraAlgorithm {
                     CurrV=j;
                 }
             }
-            u.elementAt(CurrV) = 1;
+            u.setElementAt(1,CurrV);
         }
         //Восстанавлием кратчайший путь
         if (vLen.elementAt(end) == inf)
         {
             realWay.clear();
-//            realWay.append(-1);
             realWay.addElement(-1);
         }
         else
@@ -68,11 +68,9 @@ public class DijkstraAlgorithm {
             Vector<Integer> path = new Vector<>();
             for (int cur = end; cur != -1; cur = realWay.elementAt(cur))
                 path.addElement(cur);
-//                path.append(cur);
             realWay.clear();
             for (int cur = path.size() - 1; cur > -1; cur--)
                 realWay.addElement(path.elementAt(cur));
-//                realWay.append(path.at(cur));
         }
         return realWay;
     }
