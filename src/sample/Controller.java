@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlurType;
+import javafx.scene.effect.Effect;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -10,6 +11,7 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
 
 public class Controller {
@@ -52,7 +54,7 @@ public class Controller {
                         VertexGraph vertexGraph = new VertexGraph(x, y);
                         listVertex.add(vertexGraph);
                         amountV++;
-                        Circle circle = new Circle(vertexGraph.getX(), vertexGraph.getY()+10, 10);
+                        Circle circle = new Circle(vertexGraph.getX(), vertexGraph.getY() + 10, 10);
                         circle.setFill(Color.AQUA);
                         Label label = new Label(Integer.toString(vertexGraph.getNum()));
                         label.setTextFill(Color.DARKBLUE);
@@ -89,7 +91,8 @@ public class Controller {
                         VertexGraph vertexGraph1 = listVertex.get(x - 1);
                         VertexGraph vertexGraph2 = listVertex.get(y - 1);
                         double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
-                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length);
+                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length, new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
+                                vertexGraph2.getX() - 5, vertexGraph2.getY()));
                         amountE++;
                         listEdge.add(edgeGraph);
                         double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
@@ -98,18 +101,18 @@ public class Controller {
                                 verticalComponent * verticalComponent);
                         double angle = Math.acos(horizontalComponent / realLength); // Угол грани
                         if (verticalComponent >= 0) angle = Math.PI * 2 - angle;
-                        Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
-                                vertexGraph2.getX() - 5, vertexGraph2.getY());
+                        /*Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
+                                vertexGraph2.getX() - 5, vertexGraph2.getY());*/
                         Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
                                 vertexGraph2.getX() + Math.sin(angle - Math.PI / 3) * 10 - 5,
                                 vertexGraph2.getY() + Math.cos(angle - Math.PI / 3) * 10);
                         Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
                                 vertexGraph2.getX() + Math.sin(angle - Math.PI + Math.PI / 3) * 10 - 5,
                                 vertexGraph2.getY() + Math.cos(angle - Math.PI + Math.PI / 3) * 10);
-                        line.setFill(Color.GRAY);
+                        edgeGraph.line.setFill(Color.GRAY);
                         line1.setFill(Color.GRAY);
                         line2.setFill(Color.GRAY);
-                        pane.getChildren().add(line);
+                        pane.getChildren().add(edgeGraph.line);
                         pane.getChildren().add(line1);
                         pane.getChildren().add(line2);
 
@@ -166,6 +169,13 @@ public class Controller {
                         else {
                             for (int cur = 0; cur < shortWay.size() - 1; ++cur) {
                                 textArea.appendText(Integer.toString(shortWay.get(cur) + 1) + " -> " + Integer.toString(shortWay.get(cur + 1) + 1) + "\n");
+                                for (EdgeGraph edge : listEdge1) {
+                                    if (((edge.getVertexGraphStart().getNum() == shortWay.get(cur) + 1)) && (edge.getVertexGraphEnd().getNum() == shortWay.get(cur + 1) + 1)) {
+                                        pane.getChildren().remove(edge.line);
+                                        edge.line.setStrokeWidth(3);
+                                        pane.getChildren().add(edge.line);
+                                    }
+                                }
                             }
                             textArea.appendText("Стоимость пути: " + Double.toString(dijkstra.getLength()));
                         }

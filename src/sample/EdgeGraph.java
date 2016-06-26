@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.shape.Line;
+
 import java.util.Comparator;
 
 /**
@@ -9,6 +11,7 @@ public class EdgeGraph implements Comparable<EdgeGraph> {
     private VertexGraph vertexGraphStart;
     private VertexGraph vertexGraphEnd;
     private double length;
+    Line line;
 
     public EdgeGraph() {
         vertexGraphStart = null;
@@ -16,10 +19,11 @@ public class EdgeGraph implements Comparable<EdgeGraph> {
         length = 0;
     }
 
-    public EdgeGraph(VertexGraph vertex1, VertexGraph vertex2, double length1) {
+    public EdgeGraph(VertexGraph vertex1, VertexGraph vertex2, double length1, Line line1) {
         vertexGraphStart = vertex1;
         vertexGraphEnd = vertex2;
         length = length1;
+        line = line1;
     }
 
     public VertexGraph getVertexGraphStart() {
