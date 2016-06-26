@@ -74,7 +74,7 @@ public class Controller {
                 try {
                     int x = Integer.parseInt(vertexGraph1.getText());
                     int y = Integer.parseInt(vertexGraph2.getText());
-                    if (x > amountV || y > amountV || x < 0 || y < 0) {
+                    if (x > amountV || y > amountV || x <= 0 || y <= 0) {
                         error("Не существет заданных вершин.");
                     }
                     if (x == y) {
@@ -121,6 +121,7 @@ public class Controller {
 
     @FXML
     public void shortestPathProblem() {
+        textArea.clear();
         if (startVertex.getText() == null || startVertex.getText().length() == 0) {
             error("Пожалуйста, заполните поле <Начальная вершина>");
         } else {
@@ -130,7 +131,7 @@ public class Controller {
                 try {
                     int x = Integer.parseInt(startVertex.getText());
                     int y = Integer.parseInt(endVertex.getText());
-                    if (x > amountV || y > amountV || x < 0 || y < 0) {
+                    if (x > amountV || y > amountV || x <= 0 || y <= 0) {
                         error("Не существет заданных вершин.");
                     }
                     if (x == y) {
@@ -143,10 +144,10 @@ public class Controller {
                         if (shortWay.get(0) == -1)
                             textArea.appendText("Не существует");
                         else {
-                            for (int cur = 0; cur < shortWay.size(); cur++) {
-                                textArea.appendText(" " + (shortWay.get(cur) + 1) + " -> " + (shortWay.get(cur + 1) + 1) + "\n");
+                            for (int cur = 0; cur < shortWay.size()-1; ++cur) {
+                                textArea.appendText(Integer.toString(shortWay.get(cur) + 1) + " -> " + Integer.toString(shortWay.get(cur + 1) + 1) + "\n");
                             }
-                            textArea.appendText("Стоимость пути: " + dijkstra.getLength());
+                            textArea.appendText("Стоимость пути: " + Double.toString(dijkstra.getLength()));
                         }
                     }
                 } catch (NumberFormatException ex) {
@@ -157,6 +158,21 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void deleteGraph() {
+        textArea.clear();
+        startVertex.clear();
+        endVertex.clear();
+        vertexGraph2.clear();
+        vertexGraph1.clear();
+        graphX.clear();
+        graphY.clear();
+        pane.getChildren().clear();
+        listEdge.clear();
+        listVertex.clear();
+        VertexGraph.setNumber(0);
+    }
+
     public void error(String s) {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Некорректный ввод");
@@ -165,7 +181,9 @@ public class Controller {
     }
 
     public double getLength(int x, int y, int x1, int y1) {
-        double length = Math.sqrt(Math.abs(x1 - x) ^ 2 + Math.abs(y1 - y) ^ 2);
+        double X = Math.pow(x1 - x,2);
+        double Y = Math.pow(y1 - y,2);
+        double length = (Math.sqrt(X + Y))/39;
         return length;
     }
 

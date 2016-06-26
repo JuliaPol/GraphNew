@@ -33,7 +33,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button defaultButton="true" layoutX="811.0" layoutY="380.0" mnemonicParsing="false" onAction="#shortestPathProblem" prefHeight="54.0" prefWidth="237.0" text="Алгоритм Дейкстры" textFill="#3585da" AnchorPane.bottomAnchor="163.0">
+                        <Button defaultButton="true" layoutX="811.0" layoutY="392.0" mnemonicParsing="false" onAction="#shortestPathProblem" prefHeight="54.0" prefWidth="237.0" text="Алгоритм Дейкстры" textFill="#3585da" AnchorPane.bottomAnchor="151.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -44,34 +44,34 @@
                         <Label layoutX="859.0" layoutY="137.0" text="Задайте вершины:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="859.0" AnchorPane.topAnchor="137.0" />
                         <TextArea fx:id="textArea" layoutX="14.0" layoutY="69.0" prefHeight="516.0" prefWidth="182.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
                         <Label layoutX="14.0" layoutY="45.0" text="Статус" AnchorPane.leftAnchor="14.0" />
-                        <Line endX="-90.0" endY="400.0" layoutX="300.0" layoutY="52.0" startX="-90.0" startY="10.0" />
-                        <Line endX="500.0" endY="-40.0" layoutX="302.0" layoutY="493.0" startX="-90.0" startY="-40.0" />
-                        <Label layoutX="206.0" layoutY="458.0" text="0" />
-                        <Label layoutX="245.0" layoutY="458.0" text="1" />
-                        <Label layoutX="284.0" layoutY="458.0" text="2" />
-                        <Label layoutX="323.0" layoutY="458.0" text="3" />
-                        <Label layoutX="361.0" layoutY="458.0" text="4" />
-                        <Label layoutX="400.0" layoutY="458.0" text="5" />
-                        <Label layoutX="440.0" layoutY="458.0" text="6" />
-                        <Label layoutX="479.0" layoutY="458.0" text="7" />
-                        <Label layoutX="518.0" layoutY="458.0" text="8" />
-                        <Label layoutX="557.0" layoutY="458.0" text="9" />
-                        <Label layoutX="596.0" layoutY="458.0" text="10" />
-                        <Label layoutX="635.0" layoutY="458.0" text="11" />
-                        <Label layoutX="674.0" layoutY="458.0" text="12" />
-                        <Label layoutX="713.0" layoutY="458.0" text="13" />
-                        <Label layoutX="752.0" layoutY="458.0" text="14" />
-                        <Label layoutX="791.0" layoutY="458.0" text="15" />
-                        <Label layoutX="200.0" layoutY="419.0" text="1" />
-                        <Label layoutX="200.0" layoutY="380.0" text="2" />
-                        <Label layoutX="200.0" layoutY="341.0" text="3" />
-                        <Label layoutX="200.0" layoutY="302.0" text="4" />
-                        <Label layoutX="200.0" layoutY="263.0" text="5" />
-                        <Label layoutX="200.0" layoutY="224.0" text="6" />
-                        <Label layoutX="200.0" layoutY="185.0" text="7" />
-                        <Label layoutX="200.0" layoutY="149.0" text="8" />
-                        <Label layoutX="200.0" layoutY="110.0" text="9" />
-                        <Label layoutX="195.0" layoutY="77.0" text="10" />
+                        <Line endX="-90.0" endY="400.0" layoutX="301.0" layoutY="94.0" startX="-90.0" startY="10.0" />
+                        <Line endX="500.0" endY="-40.0" layoutX="303.0" layoutY="535.0" startX="-90.0" startY="-40.0" />
+                        <Label layoutX="207.0" layoutY="500.0" text="0" />
+                        <Label layoutX="246.0" layoutY="500.0" text="1" />
+                        <Label layoutX="285.0" layoutY="500.0" text="2" />
+                        <Label layoutX="324.0" layoutY="500.0" text="3" />
+                        <Label layoutX="362.0" layoutY="500.0" text="4" />
+                        <Label layoutX="401.0" layoutY="500.0" text="5" />
+                        <Label layoutX="441.0" layoutY="500.0" text="6" />
+                        <Label layoutX="480.0" layoutY="500.0" text="7" />
+                        <Label layoutX="519.0" layoutY="500.0" text="8" />
+                        <Label layoutX="558.0" layoutY="500.0" text="9" />
+                        <Label layoutX="597.0" layoutY="500.0" text="10" />
+                        <Label layoutX="636.0" layoutY="500.0" text="11" />
+                        <Label layoutX="675.0" layoutY="500.0" text="12" />
+                        <Label layoutX="714.0" layoutY="500.0" text="13" />
+                        <Label layoutX="753.0" layoutY="500.0" text="14" />
+                        <Label layoutX="792.0" layoutY="500.0" text="15" />
+                        <Label layoutX="201.0" layoutY="461.0" text="1" />
+                        <Label layoutX="201.0" layoutY="422.0" text="2" />
+                        <Label layoutX="201.0" layoutY="383.0" text="3" />
+                        <Label layoutX="201.0" layoutY="344.0" text="4" />
+                        <Label layoutX="201.0" layoutY="305.0" text="5" />
+                        <Label layoutX="201.0" layoutY="266.0" text="6" />
+                        <Label layoutX="201.0" layoutY="227.0" text="7" />
+                        <Label layoutX="201.0" layoutY="191.0" text="8" />
+                        <Label layoutX="201.0" layoutY="152.0" text="9" />
+                        <Label layoutX="196.0" layoutY="119.0" text="10" />
                         <Button layoutX="940.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleAddVertexGraph" prefHeight="61.0" prefWidth="107.0" text="Добавить граф" textAlignment="JUSTIFY">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
@@ -115,12 +115,17 @@
                                 </Menu>
                             </menus>
                         </MenuBar>
-                  <Pane fx:id="pane" layoutX="212.0" layoutY="63.0" prefHeight="391.0" prefWidth="591.0" />
+                  <Pane fx:id="pane" layoutX="213.0" layoutY="105.0" prefHeight="391.0" prefWidth="591.0" />
                   <Label layoutX="847.0" layoutY="302.0" text="Поиск кратчайшего пути " />
                   <Label layoutX="806.0" layoutY="326.0" text="Начальная вершина" />
                   <Label layoutX="805.0" layoutY="359.0" text="Конечная вершина" />
                   <TextField fx:id="startVertex" layoutX="930.0" layoutY="322.0" prefHeight="25.0" prefWidth="112.0" />
                   <TextField fx:id="endVertex" layoutX="931.0" layoutY="355.0" prefHeight="25.0" prefWidth="112.0" />
+                  <Button layoutX="211.0" layoutY="541.0" mnemonicParsing="false" onAction="#deleteGraph" prefHeight="17.0" prefWidth="266.0" text="Удалить граф">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                     </children>
                 </AnchorPane>
             </children>

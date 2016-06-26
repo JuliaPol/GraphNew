@@ -17,7 +17,7 @@ public class Dijkstra {
     }
 
     public Dijkstra(int nSize) {
-        for (int i = 0; i < nSize; i++) {
+        for (int i = 0; i <= nSize; i++) {
             vLen.add(inf);
             realWay.add(-1);
             visitedTops.add(0);
@@ -39,12 +39,12 @@ public class Dijkstra {
                     }
                 }
             }
-            for (int i = 0; i < nSize; i++) {
+            for (int i = 0; i <=  nSize; i++) {
                 if ((vLen.get(i) < minLen) && (visitedTops.get(i) == 0)) {
                     minLen = vLen.get(i);
                 }
             }
-            for (int j = 0; j < nSize; j++) {
+            for (int j = 0; j <= nSize; j++) {
                 if ((visitedTops.get(j) == 0) && (vLen.get(j) == minLen)) {
                     CurrV = j;
                 }
