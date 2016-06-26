@@ -1,15 +1,13 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
  * Created by Julia on 25.06.2016.
  */
 public class EdgeGraph implements Comparable<EdgeGraph> {
-    private VertexGraph vertexGraphStart;
-    private VertexGraph vertexGraphEnd;
+    private Controller.VertexGraph vertexGraphStart;
+    private Controller.VertexGraph vertexGraphEnd;
     private double length;
 
     public EdgeGraph() {
@@ -18,25 +16,25 @@ public class EdgeGraph implements Comparable<EdgeGraph> {
         length = 0;
     }
 
-    public EdgeGraph(VertexGraph vertex1, VertexGraph vertex2, double length1) {
+    public EdgeGraph(Controller.VertexGraph vertex1, Controller.VertexGraph vertex2, double length1) {
         vertexGraphStart = vertex1;
         vertexGraphEnd = vertex2;
         length = length1;
     }
 
-    public VertexGraph getVertexGraphStart() {
+    public Controller.VertexGraph getVertexGraphStart() {
         return vertexGraphStart;
     }
 
-    public void setVertexGraphStart(VertexGraph vertexGraphStart) {
+    public void setVertexGraphStart(Controller.VertexGraph vertexGraphStart) {
         this.vertexGraphStart = vertexGraphStart;
     }
 
-    public VertexGraph getVertexGraphEnd() {
+    public Controller.VertexGraph getVertexGraphEnd() {
         return vertexGraphEnd;
     }
 
-    public void setVertexGraphEnd(VertexGraph vertexGraphEnd) {
+    public void setVertexGraphEnd(Controller.VertexGraph vertexGraphEnd) {
         this.vertexGraphEnd = vertexGraphEnd;
     }
 

@@ -1,14 +1,13 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
 
 public class Controller {
     @FXML
@@ -86,9 +85,21 @@ public class Controller {
                         EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length);
                         amountE++;
                         listEdge.add(edgeGraph);
-                        Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(), vertexGraph2.getX() - 5, vertexGraph2.getY());
-                        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() + 5);
-                        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(), vertexGraph2.getX() - 10, vertexGraph2.getY() - 5);
+                        double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
+                        double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
+                        double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
+                        verticalComponent * verticalComponent);
+                        double angle = Math.acos(horizontalComponent / realLength);
+                        if (verticalComponent >= 0)
+                            angle = Math.PI * 2 - angle;
+                        Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
+                                vertexGraph2.getX() - 5, vertexGraph2.getY());
+                        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
+                                vertexGraph2.getX() + Math.sin(angle - Math.PI / 3) * 10 - 5,
+                                vertexGraph2.getY() + Math.cos(angle - Math.PI / 3) * 10);
+                        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
+                                vertexGraph2.getX() + Math.sin(angle - Math.PI + Math.PI / 3) * 10 - 5,
+                                vertexGraph2.getY() + Math.cos(angle - Math.PI + Math.PI / 3) * 10);
                         pane.getChildren().add(line);
                         pane.getChildren().add(line1);
                         pane.getChildren().add(line2);
@@ -195,4 +206,64 @@ public class Controller {
     }
 
 
+    /**
+     * Created by Julia on 25.06.2016.
+     */
+    public static class VertexGraph {
+        private static int number = 0;
+        private int X;
+        private int Y;
+        private int num;
+
+        public VertexGraph() {
+            number++;
+            X = 0;
+            Y = 0;
+            num = number;
+        }
+
+        public VertexGraph(int X1, int Y1) {
+            number++;
+            X = X1 * 39;
+            Y = 390 - Y1 * 39;
+            num = number;
+        }
+
+        public int getNum() {
+            return num;
+        }
+
+        public void setNum(int num) {
+            this.num = num;
+        }
+
+        public int getX() {
+            return X;
+        }
+
+        public static int getNumber() {
+            return number;
+        }
+
+        public int getY() {
+            return Y;
+        }
+
+        public static void setNumber(int number) {
+            VertexGraph.number = number;
+        }
+
+        public void setX(int x) {
+            X = x;
+        }
+
+        public void setY(int y) {
+            Y = y;
+        }
+
+        public String toString() {
+            String s = Integer.toString(X + Y);
+            return s;
+        }
+    }
 }
