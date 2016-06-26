@@ -32,14 +32,14 @@ public class Dijkstra {
         {
             double minLen = inf;
             for (int v = 0; v < edgeGraphs.size(); v++) {
-                if (edgeGraphs.get(v).getVertexGraphStart().getNum()-1 == CurrV) {
-                    if (vLen.get(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1) > vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()-1) + edgeGraphs.get(v).getLength()) {
-                        vLen.set(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1, vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum()-1) + edgeGraphs.get(v).getLength());
-                        realWay.set(edgeGraphs.get(v).getVertexGraphEnd().getNum()-1,edgeGraphs.get(v).getVertexGraphStart().getNum()-1);
+                if (edgeGraphs.get(v).getVertexGraphStart().getNum() - 1 == CurrV) {
+                    if (vLen.get(edgeGraphs.get(v).getVertexGraphEnd().getNum() - 1) > vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum() - 1) + edgeGraphs.get(v).getLength()) {
+                        vLen.set(edgeGraphs.get(v).getVertexGraphEnd().getNum() - 1, vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum() - 1) + edgeGraphs.get(v).getLength());
+                        realWay.set(edgeGraphs.get(v).getVertexGraphEnd().getNum() - 1, edgeGraphs.get(v).getVertexGraphStart().getNum() - 1);
                     }
                 }
             }
-            for (int i = 0; i <=  nSize; i++) {
+            for (int i = 0; i <= nSize; i++) {
                 if ((vLen.get(i) < minLen) && (visitedTops.get(i) == 0)) {
                     minLen = vLen.get(i);
                 }
@@ -49,16 +49,13 @@ public class Dijkstra {
                     CurrV = j;
                 }
             }
-            visitedTops.set(CurrV,1);
+            visitedTops.set(CurrV, 1);
         }
         //Восстанавлием кратчайший путь
-        if (vLen.get(end) == inf)
-        {
+        if (vLen.get(end) == inf) {
             realWay.clear();
             realWay.add(-1);
-        }
-        else
-        {
+        } else {
             length = vLen.get(end);
             ArrayList<Integer> path = new ArrayList<>();
             for (int cur = end; cur != -1; cur = realWay.get(cur))

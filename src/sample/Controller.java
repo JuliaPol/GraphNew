@@ -2,7 +2,10 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlurType;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
@@ -49,10 +52,14 @@ public class Controller {
                         VertexGraph vertexGraph = new VertexGraph(x, y);
                         listVertex.add(vertexGraph);
                         amountV++;
-                        Button button = new Button(Integer.toString(vertexGraph.getNumber()));
-                        button.setLayoutX(x * 37);
-                        button.setLayoutY(390 - y * 39);
-                        pane.getChildren().add(button);
+                        Circle circle = new Circle(vertexGraph.getX(), vertexGraph.getY()+10, 10);
+                        circle.setFill(Color.AQUA);
+                        Label label = new Label(Integer.toString(vertexGraph.getNum()));
+                        label.setTextFill(Color.DARKBLUE);
+                        label.setLayoutX(vertexGraph.getX() - 5);
+                        label.setLayoutY(vertexGraph.getY() + 5);
+                        pane.getChildren().add(circle);
+                        pane.getChildren().add(label);
                     }
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
@@ -99,6 +106,9 @@ public class Controller {
                         Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
                                 vertexGraph2.getX() + Math.sin(angle - Math.PI + Math.PI / 3) * 10 - 5,
                                 vertexGraph2.getY() + Math.cos(angle - Math.PI + Math.PI / 3) * 10);
+                        line.setFill(Color.GRAY);
+                        line1.setFill(Color.GRAY);
+                        line2.setFill(Color.GRAY);
                         pane.getChildren().add(line);
                         pane.getChildren().add(line1);
                         pane.getChildren().add(line2);
@@ -203,6 +213,4 @@ public class Controller {
         newEdgeGraph = edgeGraphs;
         return newEdgeGraph;
     }
-
-
 }
