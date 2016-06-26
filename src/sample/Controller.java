@@ -88,7 +88,7 @@ public class Controller {
                         double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
                         double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
                         double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
-                        verticalComponent * verticalComponent);
+                                verticalComponent * verticalComponent);
                         double angle = Math.acos(horizontalComponent / realLength); // Угол грани
                         if (verticalComponent >= 0) angle = Math.PI * 2 - angle;
                         Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
@@ -154,7 +154,7 @@ public class Controller {
                         if (shortWay.get(0) == -1)
                             textArea.appendText("Не существует");
                         else {
-                            for (int cur = 0; cur < shortWay.size()-1; ++cur) {
+                            for (int cur = 0; cur < shortWay.size() - 1; ++cur) {
                                 textArea.appendText(Integer.toString(shortWay.get(cur) + 1) + " -> " + Integer.toString(shortWay.get(cur + 1) + 1) + "\n");
                             }
                             textArea.appendText("Стоимость пути: " + Double.toString(dijkstra.getLength()));
@@ -191,9 +191,9 @@ public class Controller {
     }
 
     public double getLength(int x, int y, int x1, int y1) {
-        double X = Math.pow(x1 - x,2);
-        double Y = Math.pow(y1 - y,2);
-        double length = (Math.sqrt(X + Y))/39;
+        double X = Math.pow(x1 - x, 2);
+        double Y = Math.pow(y1 - y, 2);
+        double length = (Math.sqrt(X + Y)) / 39;
         return length;
     }
 
@@ -205,64 +205,4 @@ public class Controller {
     }
 
 
-    /**
-     * Created by Julia on 25.06.2016.
-     */
-    public static class VertexGraph {
-        private static int number = 0;
-        private int X;
-        private int Y;
-        private int num;
-
-        public VertexGraph() {
-            number++;
-            X = 0;
-            Y = 0;
-            num = number;
-        }
-
-        public VertexGraph(int X1, int Y1) {
-            number++;
-            X = X1 * 39;
-            Y = 390 - Y1 * 39;
-            num = number;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public void setNum(int num) {
-            this.num = num;
-        }
-
-        public int getX() {
-            return X;
-        }
-
-        public static int getNumber() {
-            return number;
-        }
-
-        public int getY() {
-            return Y;
-        }
-
-        public static void setNumber(int number) {
-            VertexGraph.number = number;
-        }
-
-        public void setX(int x) {
-            X = x;
-        }
-
-        public void setY(int y) {
-            Y = y;
-        }
-
-        public String toString() {
-            String s = Integer.toString(X + Y);
-            return s;
-        }
-    }
 }
