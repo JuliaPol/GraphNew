@@ -89,9 +89,8 @@ public class Controller {
                         double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
                         double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
                         verticalComponent * verticalComponent);
-                        double angle = Math.acos(horizontalComponent / realLength);
-                        if (verticalComponent >= 0)
-                            angle = Math.PI * 2 - angle;
+                        double angle = Math.acos(horizontalComponent / realLength); // Угол грани
+                        if (verticalComponent >= 0) angle = Math.PI * 2 - angle;
                         Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
                                 vertexGraph2.getX() - 5, vertexGraph2.getY());
                         Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
