@@ -212,21 +212,21 @@ public class Controller {
         else {
             try {
                 int num = Integer.parseInt(numDemVer.getText());
-                if (num > 20 || num < 3) error("Введите количество вершин в диапозоне от 3 до 20");
+                if (num > 10 || num < 3) error("Введите количество вершин в диапозоне от 3 до 10");
                 else {
-                    /*double angle = 2*Math.PI/num;
-                    double r = (num * 15)/7;*/
+                    double angle = 2*Math.PI/num;
+                    double r = (num * 80)/Math.PI/2/39;
                     int cx = 310/39;
                     int cy = 230/39;
                     double a, b,  z = 0 ;
-                    double angle = 360.0 / num ;
-                    int R = 100/39;
+                    //double angle = 360.0 / num ;
+                    int R = 100/39*2;
                     for (int i = 0; i < num ; i++) {
-                        a = Math.cos( z/180*Math.PI);
-                        b = Math.sin( z/180*Math.PI);
-                        z = z + angle;
-                        VertexGraph vertexGraph = new VertexGraph((cx+ (int)(Math.round(a) * R)), (cy - (int)(Math.round(b) * R)));
-                        //VertexGraph vertexGraph = new VertexGraph((int)(cx + r * Math.cos(angle * i)),(int)(cy + r * Math.sin(angle * i)));
+                        //a = Math.cos( z/180*Math.PI);
+                        //b = Math.sin( z/180*Math.PI);
+                        //z = z + angle;
+                        //VertexGraph vertexGraph = new VertexGraph((cx+ (int)(Math.round(a) * R)), (cy - (int)(Math.round(b) * R)));
+                        VertexGraph vertexGraph = new VertexGraph((int)(cx + r * Math.cos(angle * i)),(int)(cy + r * Math.sin(angle * i)));
                         listVertex.add(vertexGraph);
                         amountV++;
                         Circle circle = new Circle(vertexGraph.getX(), vertexGraph.getY() + 10, 10);
