@@ -3,34 +3,55 @@ package sample;
 import java.util.ArrayList;
 
 /**
- * Created by Julia on 25.06.2016.
+ * Класс, отвечающий за работу алгоритма Дейкстры на ориентированных графах
  */
 public class Dijkstra {
-    private final static double inf = 1000000;
-    private ArrayList<Double> vLen = new ArrayList<>();// Длина путей
-    private ArrayList<Integer> visitedTops = new ArrayList<>();//Посещенные вершины
-    private ArrayList<Integer> realWay = new ArrayList<>();//Предыдущие значения вершин
-    private double length;
+    private final static double INF = 1000000; // Фиксированное, заведомо большее остальных, значение длины пути
+    private ArrayList<Double> vLen = new ArrayList<>(); // Длина путей
+    private ArrayList<Integer> visitedTops = new ArrayList<>(); //Посещенные вершины
+    private ArrayList<Integer> realWay = new ArrayList<>(); //Предыдущие значения вершин
+    private double length; // Длина кратчайшего пути
 
     public double getLength() {
         return length;
     }
 
+    /**
+     * Конструктор по умолчанию
+     */
+    public Dijkstra() {
+        vLen.add(INF);
+        realWay.add(-1);
+        visitedTops.add(0);
+    }
+
+    /**
+     * Конструктор с параметрами
+     * @param nSize количество ребер в графе
+     */
     public Dijkstra(int nSize) {
         for (int i = 0; i <= nSize; i++) {
-            vLen.add(inf);
+            vLen.add(INF);
             realWay.add(-1);
             visitedTops.add(0);
         }
     }
 
+    /**
+     * Реализация алгоритма Дейкстры
+     * @param start индекс стартовой вершины
+     * @param end индекс конечной вершины
+     * @param nSize количество ребер в графе
+     * @param edgeGraphs список ребер
+     * @return список из вершин, содержащихся в кратчайшем искомом пути
+     */
     public ArrayList<Integer> dijkstraAlgoritm(int start, int end, int nSize, ArrayList<EdgeGraph> edgeGraphs) {
         vLen.set(start, 0.0);
         int CurrV = start; //Текущий элемент
         visitedTops.set(CurrV, 1);
         while (visitedTops.get(end) != 1) //Цикл выполняется до тех пор, пока не посетим конечную вершину
         {
-            double minLen = inf;
+            double minLen = INF;
             for (int v = 0; v < edgeGraphs.size(); v++) {
                 if (edgeGraphs.get(v).getVertexGraphStart().getNum() - 1 == CurrV) {
                     if (vLen.get(edgeGraphs.get(v).getVertexGraphEnd().getNum() - 1) > vLen.get(edgeGraphs.get(v).getVertexGraphStart().getNum() - 1) + edgeGraphs.get(v).getLength()) {
@@ -52,7 +73,7 @@ public class Dijkstra {
             visitedTops.set(CurrV, 1);
         }
         //Восстанавлием кратчайший путь
-        if (vLen.get(end) == inf) {
+        if (vLen.get(end) == INF) {
             realWay.clear();
             realWay.add(-1);
         } else {

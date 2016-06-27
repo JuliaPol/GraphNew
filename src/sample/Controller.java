@@ -1,9 +1,8 @@
 package sample;
 
+import com.sun.javafx.geom.Edge;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.Effect;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -11,7 +10,6 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.ResourceBundle;
 
 
 public class Controller {
@@ -30,6 +28,8 @@ public class Controller {
     @FXML
     private TextField endVertex;
     @FXML
+    private TextField numDemVer;
+    @FXML
     private TextArea textArea;
     private Alert alert;
     private static int amountV = 0;
@@ -39,6 +39,7 @@ public class Controller {
 
     @FXML
     public void handleAddVertexGraph() {
+        setDefaultLine(1);
         if (graphX.getText() == null || graphX.getText().length() == 0) {
             error("Пожалуйста, заполните поле <X>");
         } else {
@@ -73,6 +74,7 @@ public class Controller {
 
     @FXML
     public void handleAddEdge() {
+        setDefaultLine(1);
         if (vertexGraph1.getText() == null || vertexGraph1.getText().length() == 0) {
             error("Пожалуйста, заполните поле <Начальная>");
         } else {
@@ -101,8 +103,6 @@ public class Controller {
                                 verticalComponent * verticalComponent);
                         double angle = Math.acos(horizontalComponent / realLength); // Угол грани
                         if (verticalComponent >= 0) angle = Math.PI * 2 - angle;
-                        /*Line line = new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
-                                vertexGraph2.getX() - 5, vertexGraph2.getY());*/
                         Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
                                 vertexGraph2.getX() + Math.sin(angle - Math.PI / 3) * 10 - 5,
                                 vertexGraph2.getY() + Math.cos(angle - Math.PI / 3) * 10);
@@ -145,6 +145,7 @@ public class Controller {
     @FXML
     public void shortestPathProblem() {
         textArea.clear();
+        setDefaultLine(1);
         if (startVertex.getText() == null || startVertex.getText().length() == 0) {
             error("Пожалуйста, заполните поле <Начальная вершина>");
         } else {
@@ -203,6 +204,48 @@ public class Controller {
         VertexGraph.setNumber(0);
     }
 
+    @FXML
+    public void demonstration() {
+        if (numDemVer.getText() == null || numDemVer.getText().length() == 0) {
+            error("Пожалуйста, заполните корректно поле <Количество вершин>");
+        }
+        else {
+            try {
+                int num = Integer.parseInt(numDemVer.getText());
+                if (num > 20 || num < 3) error("Введите количество вершин в диапозоне от 3 до 20");
+                else {
+                    /*double angle = 2*Math.PI/num;
+                    double r = (num * 15)/7;*/
+                    int cx = 310/39;
+                    int cy = 230/39;
+                    double a, b,  z = 0 ;
+                    double angle = 360.0 / num ;
+                    int R = 100/39;
+                    for (int i = 0; i < num ; i++) {
+                        a = Math.cos( z/180*Math.PI);
+                        b = Math.sin( z/180*Math.PI);
+                        z = z + angle;
+                        VertexGraph vertexGraph = new VertexGraph((cx+ (int)(Math.round(a) * R)), (cy - (int)(Math.round(b) * R)));
+                        //VertexGraph vertexGraph = new VertexGraph((int)(cx + r * Math.cos(angle * i)),(int)(cy + r * Math.sin(angle * i)));
+                        listVertex.add(vertexGraph);
+                        amountV++;
+                        Circle circle = new Circle(vertexGraph.getX(), vertexGraph.getY() + 10, 10);
+                        circle.setFill(Color.AQUA);
+                        Label label = new Label(Integer.toString(vertexGraph.getNum()));
+                        label.setTextFill(Color.DARKBLUE);
+                        label.setLayoutX(vertexGraph.getX() - 5);
+                        label.setLayoutY(vertexGraph.getY() + 5);
+                        pane.getChildren().add(circle);
+                        pane.getChildren().add(label);
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                ex.printStackTrace();
+                error("Введено некорректное значение в поле <Количество вершин>! Пожалуста, вводите только цифры.");
+            }
+        }
+    }
+
     public void error(String s) {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Некорректный ввод");
@@ -222,5 +265,13 @@ public class Controller {
         Collections.sort(edgeGraphs, new EdgeGraph.EdgeCompare());
         newEdgeGraph = edgeGraphs;
         return newEdgeGraph;
+    }
+
+    public void setDefaultLine(int width) {
+        for (EdgeGraph edge : listEdge) {
+            pane.getChildren().remove(edge.line);
+            edge.line.setStrokeWidth(width);
+            pane.getChildren().add(edge.line);
+        }
     }
 }

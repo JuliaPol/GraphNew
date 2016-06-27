@@ -122,11 +122,14 @@
                   <Label layoutX="805.0" layoutY="359.0" text="Конечная вершина" />
                   <TextField fx:id="startVertex" layoutX="930.0" layoutY="322.0" prefHeight="25.0" prefWidth="112.0" />
                   <TextField fx:id="endVertex" layoutX="931.0" layoutY="355.0" prefHeight="25.0" prefWidth="112.0" />
-                  <Button layoutX="211.0" layoutY="541.0" mnemonicParsing="false" onAction="#deleteGraph" prefHeight="17.0" prefWidth="266.0" text="Удалить граф">
+                  <Button layoutX="214.0" layoutY="564.0" mnemonicParsing="false" onAction="#deleteGraph" prefHeight="25.0" prefWidth="320.0" text="Удалить граф">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button layoutX="403.0" layoutY="533.0" mnemonicParsing="false" onAction="#demonstration" text="Сгенерировать граф" />
+                  <TextField fx:id="numDemVer" layoutX="337.0" layoutY="533.0" prefHeight="25.0" prefWidth="59.0" />
+                  <Label layoutX="214.0" layoutY="537.0" text="Количество вершин" />
                     </children>
                 </AnchorPane>
             </children>

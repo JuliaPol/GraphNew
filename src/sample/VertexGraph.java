@@ -1,7 +1,8 @@
 package sample;
 
 /**
- * Created by Julia on 26.06.2016.
+ * Класс вершин
+ * @author NiPaYu
  */
 public class VertexGraph {
     private static int number = 0;
@@ -9,6 +10,9 @@ public class VertexGraph {
     private int Y;
     private int num;
 
+    /**
+     * Конструктор по умолчанию
+     */
     public VertexGraph() {
         number++;
         X = 0;
@@ -16,6 +20,11 @@ public class VertexGraph {
         num = number;
     }
 
+    /**
+     * Конструктор с параметрами
+     * @param X1 координата вершины по оси Х
+     * @param Y1 координата вершины по оси Y
+     */
     public VertexGraph(int X1, int Y1) {
         number++;
         X = X1 * 39;
