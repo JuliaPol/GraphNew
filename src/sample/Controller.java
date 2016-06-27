@@ -206,13 +206,12 @@ public class Controller {
                         label.setLayoutY(vertexGraph.getY() + 5);
                         pane.getChildren().add(circle);
                         pane.getChildren().add(label);
-
-                        //connect one-to-one vertex
                     }
 
-                    for(int i = 1; i < num; i++){
+                    for(int i = 1; i < num; i++){ // connect one-to-one vertex
                         paintLine(i-1,i);
                     }
+                    paintLine(num-1,0);
                 }
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
