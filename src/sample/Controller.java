@@ -216,8 +216,8 @@ public class Controller {
                 else {
                     double angle = 2*Math.PI/num;
                     double r = (num * 80)/Math.PI/2/39;
-                    int cx = 310/39;
-                    int cy = 230/39;
+                    double cx = 300/39;
+                    double cy = 248/39;
                     double a, b,  z = 0 ;
                     //double angle = 360.0 / num ;
                     int R = 100/39*2;
