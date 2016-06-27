@@ -90,32 +90,7 @@ public class Controller {
                     if (x == y) {
                         error("Выберите различные вершины.");
                     } else {
-                        VertexGraph vertexGraph1 = listVertex.get(x - 1);
-                        VertexGraph vertexGraph2 = listVertex.get(y - 1);
-                        double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
-                        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(x - 1), listVertex.get(y - 1), length, new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
-                                vertexGraph2.getX() - 5, vertexGraph2.getY()));
-                        amountE++;
-                        listEdge.add(edgeGraph);
-                        double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
-                        double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
-                        double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
-                                verticalComponent * verticalComponent);
-                        double angle = Math.acos(horizontalComponent / realLength); // Угол грани
-                        if (verticalComponent >= 0) angle = Math.PI * 2 - angle;
-                        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
-                                vertexGraph2.getX() + Math.sin(angle - Math.PI / 3) * 10 - 5,
-                                vertexGraph2.getY() + Math.cos(angle - Math.PI / 3) * 10);
-                        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
-                                vertexGraph2.getX() + Math.sin(angle - Math.PI + Math.PI / 3) * 10 - 5,
-                                vertexGraph2.getY() + Math.cos(angle - Math.PI + Math.PI / 3) * 10);
-                        edgeGraph.line.setFill(Color.GRAY);
-                        line1.setFill(Color.GRAY);
-                        line2.setFill(Color.GRAY);
-                        pane.getChildren().add(edgeGraph.line);
-                        pane.getChildren().add(line1);
-                        pane.getChildren().add(line2);
-
+                        paintLine(x-1,y-1);
                     }
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
@@ -231,6 +206,12 @@ public class Controller {
                         label.setLayoutY(vertexGraph.getY() + 5);
                         pane.getChildren().add(circle);
                         pane.getChildren().add(label);
+
+                        //connect one-to-one vertex
+                    }
+
+                    for(int i = 1; i < num; i++){
+                        paintLine(i-1,i);
                     }
                 }
             } catch (NumberFormatException ex) {
@@ -267,5 +248,33 @@ public class Controller {
             edge.line.setStrokeWidth(width);
             pane.getChildren().add(edge.line);
         }
+    }
+
+    public void paintLine(int first, int second){
+        VertexGraph vertexGraph1 = listVertex.get(first);
+        VertexGraph vertexGraph2 = listVertex.get(second);
+        double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
+        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(first), listVertex.get(second), length, new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
+                vertexGraph2.getX() - 5, vertexGraph2.getY()));
+        amountE++;
+        listEdge.add(edgeGraph);
+        double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
+        double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
+        double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
+                verticalComponent * verticalComponent);
+        double angle1 = Math.acos(horizontalComponent / realLength); // Угол грани
+        if (verticalComponent >= 0) angle1 = Math.PI * 2 - angle1;
+        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
+                vertexGraph2.getX() + Math.sin(angle1 - Math.PI / 3) * 10 - 5,
+                vertexGraph2.getY() + Math.cos(angle1 - Math.PI / 3) * 10);
+        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
+                vertexGraph2.getX() + Math.sin(angle1 - Math.PI + Math.PI / 3) * 10 - 5,
+                vertexGraph2.getY() + Math.cos(angle1 - Math.PI + Math.PI / 3) * 10);
+        edgeGraph.line.setFill(Color.GRAY);
+        line1.setFill(Color.GRAY);
+        line2.setFill(Color.GRAY);
+        pane.getChildren().add(edgeGraph.line);
+        pane.getChildren().add(line1);
+        pane.getChildren().add(line2);
     }
 }
