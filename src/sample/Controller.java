@@ -187,7 +187,7 @@ public class Controller {
         else {
             try {
                 int num = Integer.parseInt(numDemVer.getText());
-                if (num > 10 || num < 3) error("Введите количество вершин в диапазоне от 3 до 10(111)");
+                if (num > 10 || num < 3) error("Введите количество вершин в диапазоне от 3 до 10");
                 else {
                     double angle = 2*Math.PI/num;
                     double a = 100.0;
