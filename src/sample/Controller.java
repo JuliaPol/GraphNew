@@ -187,7 +187,7 @@ public class Controller {
         else {
             try {
                 int num = Integer.parseInt(numDemVer.getText());
-                if (num > 10 || num < 3) error("Введите количество вершин в диапазоне от 3 до 10");
+                if (num > 10 || num < 3) error("Введите количество вершин в диапазоне от 3 до 10(111)");
                 else {
                     double angle = 2*Math.PI/num;
                     double a = 100.0;
@@ -253,22 +253,27 @@ public class Controller {
         VertexGraph vertexGraph1 = listVertex.get(first);
         VertexGraph vertexGraph2 = listVertex.get(second);
         double length = getLength(vertexGraph1.getX(), vertexGraph1.getY(), vertexGraph2.getX(), vertexGraph2.getY());
-        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(first), listVertex.get(second), length, new Line(vertexGraph1.getX() - 5, vertexGraph1.getY(),
-                vertexGraph2.getX() - 5, vertexGraph2.getY()));
         amountE++;
-        listEdge.add(edgeGraph);
         double horizontalComponent = vertexGraph2.getX() - vertexGraph1.getX();
         double verticalComponent = vertexGraph2.getY() - vertexGraph1.getY();
         double realLength = Math.sqrt(horizontalComponent * horizontalComponent +
                 verticalComponent * verticalComponent);
         double angle1 = Math.acos(horizontalComponent / realLength); // Угол грани
         if (verticalComponent >= 0) angle1 = Math.PI * 2 - angle1;
-        Line line1 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
-                vertexGraph2.getX() + Math.sin(angle1 - Math.PI / 3) * 10 - 5,
-                vertexGraph2.getY() + Math.cos(angle1 - Math.PI / 3) * 10);
-        Line line2 = new Line(vertexGraph2.getX() - 5, vertexGraph2.getY(),
-                vertexGraph2.getX() + Math.sin(angle1 - Math.PI + Math.PI / 3) * 10 - 5,
-                vertexGraph2.getY() + Math.cos(angle1 - Math.PI + Math.PI / 3) * 10);
+        double shiftX = 10 * Math.cos(angle1);
+        double shiftY = 10 * Math.sin(angle1);
+        EdgeGraph edgeGraph = new EdgeGraph(listVertex.get(first), listVertex.get(second), length,
+                new Line(vertexGraph1.getX() + shiftX,
+                        vertexGraph1.getY() - shiftY + 10,
+                        vertexGraph2.getX() - shiftX,
+                        vertexGraph2.getY() + shiftY + 10));
+        listEdge.add(edgeGraph);
+        Line line1 = new Line(vertexGraph2.getX() - shiftX, vertexGraph2.getY() + shiftY + 10,
+                vertexGraph2.getX() + Math.sin(angle1 - Math.PI / 3) * 10 - shiftX,
+                vertexGraph2.getY() + Math.cos(angle1 - Math.PI / 3) * 10 + shiftY + 10);
+        Line line2 = new Line(vertexGraph2.getX() - shiftX, vertexGraph2.getY() + shiftY + 10,
+                vertexGraph2.getX() + Math.sin(angle1 - Math.PI + Math.PI / 3) * 10 - shiftX,
+                vertexGraph2.getY() + Math.cos(angle1 - Math.PI + Math.PI / 3) * 10 + shiftY + 10);
         edgeGraph.line.setFill(Color.GRAY);
         line1.setFill(Color.GRAY);
         line2.setFill(Color.GRAY);
